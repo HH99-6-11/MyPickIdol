@@ -2,9 +2,100 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>MY PICK ! IDOL</title>
+    <style>
+        /*화면 전체 여백제거*/
+        body {
+            margin: 0px;
+            padding: 0px;
+        }
+
+        /*a 태그 청색 지움*/
+        a {
+            text-decoration: none;
+            color: black;
+        }
+
+        /*로그인 , 즐겨찾기 정렬*/
+        .navbar {
+            display: flex;
+            list-style: none;
+            padding-left: 0px;
+            float: right;
+            margin: 0px 20px;
+        }
+
+        .navbar > li > a {
+            max-font-size: 20px;
+            font-size: 95%;
+            margin-left: 10px;
+        }
+
+        .navbar > li > a:hover {
+            ackground-color: white;
+            border-radius: 2px;
+            box-shadow: 1px 1px black;
+        }
+
+        .logo {
+            margin-left: 10px;
+        }
+
+        /*검색창*/
+        .search {
+            position: initial;
+            width: 300px;
+            margin: auto;
+        }
+
+        .search > input {
+            width: 100%;
+            border: 1px solid #bbb;
+            border-radius: 8px;
+            padding: 10px 12px;
+            font-size: 14px;
+            text-align: center;
+        }
+
+        /*메인콘솔*/
+        .main {
+            margin-top: 20px;
+        }
+
+        .img {
+            width: 100px;
+            height: 100px;
+            border-radius: 4px;
+            background-color: black;
+            display: block;
+        }
+
+    </style>
+    <script src="https://kit.fontawesome.com/b89b152fff.js" crossorigin="anonymous"></script>
 </head>
 <body>
-    <div>test</div>
+<!--페이지 상단  헤더-->
+<header>
+    <!--로그인과 즐겨찾기-->
+    <nav class="navbar">
+        <li><a href="#">⭐</a></li>
+        <li><a href="#">로그인</a></li>
+    </nav>
+    <!--  로고  -->
+    <div class="logo">
+        <a href="#" target="_blank"><h1>MY PICK !<br>
+               IDOL !</h1></a>
+    </div>
+    <!--  검색창  -->
+    <div class="search">
+        <input type="text" placeholder="검색어 입력"/>
+    </div>
+</header>
+<!--메인 콘솔-->
+<main class="main">
+    <div>
+        <a href="#" target="_blank"><p><img class="img" />name</p> </a>
+    </div>
+</main>
 </body>
 </html>
