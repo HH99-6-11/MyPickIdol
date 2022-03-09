@@ -1,11 +1,199 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
-    <div>강형원 수정</div>
-    <div>이윤지 수정</div>
-</body>
+<!Doctype html>
+<html lang="ko">
+
+    <head>
+        <!-- Required meta tags -->
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <title>My Pick Idol</title>
+
+        <!-- Bootstrap CSS -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+              integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+              crossorigin="anonymous">
+
+        <!-- JS -->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+                integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+                crossorigin="anonymous"></script>
+
+        <!-- 구글폰트 -->
+        <link href="https://fonts.googleapis.com/css2?family=Jua&family=Noto+Sans:wght@400;700&display=swap" rel="stylesheet">
+
+        <!-- style -->
+        <style type="text/css">
+            * {
+                margin: 0;
+                padding: 0;
+                box-sizing: border-box;
+                font-family: 'Noto Sans', sans-serif;
+            }
+
+            .wrap {
+                position: relative;
+                width: 100%;
+                height: auto;
+                margin: 0 auto;
+            }
+
+            .my-idol {
+                width: 1000px;
+                margin-top: 300px;
+                margin-bottom: 50px;
+            }
+
+            .card {
+                width: 200px;
+            }
+
+            #fav_video {
+                position: relative;
+                width: 85%;
+                height: auto;
+                margin: 20px auto;
+                /*border: 1px solid red;*/
+            }
+
+            .video_list {
+                position: relative;
+                width: 100%;
+                height: auto;
+            }
+
+            .video_box {
+                position: relative;
+                float: left;
+                width: 22%;
+                height: 330px;
+                border-radius: 20px;
+                margin: 1% 0 1% 2%;
+                border: 2px solid lightgrey;
+            }
+
+            .video {
+                width: 100%;
+                height: 200px;
+                overflow: hidden;
+                /*비디오를 해당 크기의 세로정렬 가운데를 위해 */
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                margin-top: 18px;
+            }
+
+            .video_box a {
+                text-decoration: none;
+                display: block;
+                color: black;
+                width: 100%;
+                height: 90px;
+                /*border: 1px solid red;*/
+                margin-top: 5px;
+                padding: 5px;
+            }
+
+            .video_box a:hover {
+                text-decoration: underline;
+                color: dimgray;
+            }
+        </style>
+        <script>
+            $(document).ready(function () {
+                showArticles();
+            });
+
+
+            function postArticle() {
+                let url = $('#post-url').val()
+                let comment = $('#post-comment').val()
+
+                $.ajax({
+                    type: "POST",
+                    url: "/memo",
+                    data: {url_give:url, comment_give:comment},
+                    success: function (response) { // 성공하면
+                        alert(response["msg"]);
+                        window.location.reload()
+                    }
+                })
+            }
+
+            function showArticles() {
+                $.ajax({
+                    type: "GET",
+                    url: "/memo",
+                    data: {},
+                    success: function (response) {
+                        let images = response['image']
+                        for (let i = 0; i < articles.length; i++) {
+                            let title = articles[i]['title']
+                            let image = articles[i]['image']
+                            let url = articles[i]['url']
+                            let desc = articles[i]['desc']
+                            let comment = articles[i]['comment']
+
+                            let temp_html = `<div class="card">
+                                                <img class="card-img-top"
+                                                     src="${image}"
+                                                     alt="Card image cap">
+                                                <div class="card-body">
+                                                    <a target="_blank" href="${url}" class="card-title">${title}</a>
+
+                                                </div>
+                                            </div>`
+                            $('#cards-box').append(temp_html)
+                        }
+                    }
+                })
+            }
+        </script>
+
+    </head>
+
+    <body>
+        <div class="wrap">
+
+            <img class="my-idol"
+                 src="https://v-phinf.pstatic.net/20210701_104/1625065533770FDOMI_JPEG/upload_69145265481872491ef6aa0c6-e752-48d9-97e0-9ce71cf7c1ee.jpg?type=n800_400">
+            <section id="fav_video">
+                <h2>동영상</h2>
+                <div class="video_list">
+                    <!--                유튜브-->
+                    <div class="video_box">
+                        <iframe class="video" width="100%" src="https://www.youtube.com/embed/iDjQSdN_ig8"
+                                frameborder="0"
+                                allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+                                allowfullscreen></iframe>
+                        <a href="#"><p>[MV] OH MY GIRL(오마이걸) _ Nonstop(살짝 설렜어)</p></a>
+                    </div>
+                    <div class="video_box">
+                        <iframe class="video" width="100%" src="https://www.youtube.com/embed/iDjQSdN_ig8"
+                                frameborder="0"
+                                allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+                                allowfullscreen></iframe>
+                        <a href="#"><p>[MV] OH MY GIRL(오마이걸) _ Nonstop(살짝 설렜어)</p></a>
+                    </div>
+                    <!--                브이앱-->
+                    <div class="video_box">
+                        <iframe class="video" width="100%" src="https://vlive.tv/embed/278550?autoPlay=false"
+                                frameborder="0"
+                                allow="accelerometer; mute=1; encrypted-media; gyroscope; picture-in-picture"
+                                allowfullscreen></iframe>
+                        <a href="#"><p>방탄소년단 팬들 난리난 잠실 주경기장 현장 리허설 상황 (세트리스트 스포 주의) BTS Seoul Concert rehearsal</p></a>
+                    <div class="video_box">
+                        <iframe class="video" width="100%" src="https://vlive.tv/embed/278550?autoPlay=false"
+                                frameborder="0"
+                                allow="accelerometer; mute=1; encrypted-media; gyroscope; picture-in-picture"
+                                allowfullscreen></iframe>
+                        <a href="#"><p>방탄소년단 팬들 난리난 잠실 주경기장 현장 리허설 상황 (세트리스트 스포 주의) BTS Seoul Concert rehearsal</p></a>
+                    </div>
+                </div>
+            </section>
+        </div>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script>
+
+        </script>
+    </body>
 </html>
