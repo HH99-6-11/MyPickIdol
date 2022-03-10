@@ -1,40 +1,23 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <title>MY PICK ! IDOL</title>
-    <link rel="stylesheet" type="text/css" href="/static/main.css">
-     <script>
-        $(document).ready(function () {
-           $('#card-box').empty()
+
             listing();
         });
 
         function listing() {
             $.ajax({
-                type: 'GET',
-                url: '/idol',
-                data: {},
-                success: function (response) {
-                   let rows = response['idolse']
-                    for(let i = 0;  i < rows.length; i++){
-                        let id = rows[i]['id']
-                        let name = rows[1]['name']
-                        let image = rows[i]['image']
-
-                        let temp_html = `<div class="i">
-                                            <a href="${id}" target="_blank"><img src="${image}" class="img"/></a>
-                                            <p class="name">${name}</p>
-                                        </div>`
-
-                        $('#cards-box').append(temp_html)
 
                     }
                 }
             })
         }
-     </script>
+
 </head>
+
 <body>
+
 </body>
+
 </html>
