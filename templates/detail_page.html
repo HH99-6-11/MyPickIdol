@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+              integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+              crossorigin="anonymous">
+
+    <!-- JS -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+                integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+                crossorigin="anonymous"></script>
+
+    <!-- 구글폰트 -->
+    <link href="https://fonts.googleapis.com/css?family=Stylish&display=swap" rel="stylesheet">
+
+
+    <title>detail page</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        #container {
+            position: relative;
+            width: 100%;
+        }
+
+        .logo {
+            margin-left: 10px;
+            background-color: white;
+            border: 0px none;
+            font-size: 40px;
+        }
+
+        /*detail page*/
+        .idolname {
+            width: 150px;
+            font-size: 5em;
+            height: 100px;
+            line-height: 90px;
+        }
+
+        #mainImg {
+            width: 50%;
+            height: 500px;
+            margin: 20px auto;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        #mainImg img {
+            width: 100%;
+            height: 100%;
+            border-radius: 10px;
+        }
+
+        #info {
+            width: 50%;
+            margin: 0 auto;
+        }
+
+        #info button {
+            border: none;
+            width: 500px;
+            height: 70px;
+            margin: 30px auto;
+            border-radius: 10px;
+            font-size: 1.5em;
+            box-shadow: 2px 2px 2px 2px lightgrey;
+            display: block;
+        }
+
+        #info button:hover {
+            cursor: pointer;
+            opacity: 50%;
+        }
+
+        .oneBtn {
+            background-color: rgba(226, 105, 65, 0.38);
+        }
+
+        .twoBtn {
+            background-color: rgba(255, 234, 109, 0.63);
+        }
+
+        .threeBtn {
+            background-color: rgba(140, 226, 74, 0.38)
+        }
+    </style>
+    <script>
+        $(document).ready(function () {
+           DetailPage();
+           DetailPage2();
+        });
+
+        function DetailPage() {
+            $.ajax({
+                type: "GET",
+                url: "/detail",
+                data: {},
+                success: function (response) {
+                    let rows = response['all_rows'];
+                    for (let i = 0; i < rows.length; i++) {
+                        let name = rows[i]['name'];
+                        let mainImg = rows[i]['mainImg'];
+
+                        let temp_html = `
+                                            <h2 class="idolname">${name}</h2>
+                                            <img src="${mainImg}">
+                                         `
+                        $('#mainImg').append(temp_html)
+                    }
+                }
+            });
+        }
+
+        function DetailPage2() {
+            $.ajax({
+                type: "GET",
+                url: "/detail",
+                data: {},
+                success: function (response) {
+                    let rows = response['all_rows'];
+                    for (let i = 0; i < 1; i++) {
+                        let name = rows[i]['name'];
+
+                        let temp_html = `
+                                            <button class="oneBtn" onclick ="location.href='https://search.naver.com/search.naver?where=image&sm=tab_jum&query=+${name}'" type="button">이미지 보러가기</button>
+                                            <button class="twoBtn" onclick ="location.href='https://search.naver.com/search.naver?where=video&sm=tab_jum&query=+${name}'" type="button">동영상 보러가기</button>
+                                            <button class="threeBtn" onclick ="location.href='https://search.naver.com/search.naver?where=news&sm=tab_jum&query=+${name}'" type="button">뉴스 보러가기</button>
+                                         `
+                        $('#info').append(temp_html)
+                    }
+                }
+            });
+        }
+
+    </script>
+</head>
+<body>
+<div id="container">
+    <!--페이지 상단  헤더-->
+    <header>
+        <!--  로고  -->
+        <div>
+            <button class="logo" onclick="home()">
+                MY PICK !<br>
+                IDOL !
+            </button>
+        </div>
+        <!--detail page-->
+        <section id="mainImg">
+        </section>
+        <section id="info">
+        </section>
+    </header>
+</div>
+</body>
+</html>

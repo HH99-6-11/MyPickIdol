@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+            crossorigin="anonymous"></script>
+    <title>MY PICK ! IDOL</title>
+    <style>
+        /*a 태그 청색 지움*/
+        a {
+            text-decoration: none;
+            color: black;
+        }
+
+        /*로그인 , 즐겨찾기 정렬*/
+        .navbar {
+            display: flex;
+            list-style: none;
+            padding-left: 0px;
+            float: right;
+            margin: 0px 20px;
+        }
+
+        .navbar > li > a {
+            max-font-size: 20px;
+            font-size: 95%;
+            margin-left: 10px;
+        }
+
+        .navbar > li > a:hover {
+            ackground-color: white;
+            border-radius: 2px;
+            box-shadow: 1px 1px black;
+        }
+
+        .logo {
+            margin-left: 10px;
+            background-color: white;
+            border: 0px none;
+            font-size: 40px;
+        }
+
+        /*검색창*/
+        /*.search {*/
+        /*    position: initial;*/
+        /*    width: 300px;*/
+        /*    margin: auto;*/
+        /*}*/
+
+        /*.search > input {*/
+        /*    width: 100%;*/
+        /*    border: 1px solid #bbb;*/
+        /*    border-radius: 8px;*/
+        /*    padding: 10px 12px;*/
+        /*    font-size: 14px;*/
+        /*    text-align: center;*/
+        /*}*/
+
+        /*메인콘솔*/
+        .main {
+            margin: 70px 200px;
+
+        }
+
+        .i {
+            float: left;
+            margin: 0px 20px;
+        }
+
+        .img {
+            width: 120px;
+            height: 120px;
+            border-radius: 4px;
+        }
+
+        .name {
+            display: block;
+            font-size: 1px;
+        }
+    </style>
+    <script>
+        $(document).ready(function () {
+            $('#cards-box').empty()
+            listing();
+        });
+
+        function listing() {
+            $.ajax({
+                type: "GET",
+                url: "/idol",
+                data: {},
+                success: function (response) {
+                    let rows = response['idols']
+                    for (let i = 0; i < rows.length; i++) {
+                        let id = rows[i]['id']
+                        let name = rows[i]['name']
+                        let image = rows[i]['imgUrl']
+
+                        let temp_html = `<div class="i">
+                                                <a onclick="location.href='/detail"><img src="${image}" class="img"/></a>
+                                                <p class="name">${name}</p>
+                                         </div>`
+
+                        $('#cards-box').append(temp_html)
+                    }
+                }
+            })
+        }
+
+    </script>
+</head>
+<body>
+<!--페이지 상단  헤더-->
+<header>
+    <!--로그인과 즐겨찾기-->
+    <nav class="navbar">
+        <li><a id="loginBtn" onclick="location.href='/login'">로그인</a></li>
+    </nav>
+    <!--  로고  -->
+    <div>
+        <button class="logo" onclick="home()">
+            MY PICK !<br>
+            IDOL !
+        </button>
+    </div>
+    <!--  검색창  -->
+<!--    <form class="search">-->
+<!--        <input id="value" onkeyup="filter()" type="text" placeholder="검색어 입력"/>-->
+<!--    </form>-->
+</header>
+<!--메인 콘솔-->
+<main class="main" id="cards-box">
+    <div class="i">
+        <a href="#"><img class="img"/></a>
+        <p class="name">name</p>
+    </div>
+</main>
+</body>
+</html>
