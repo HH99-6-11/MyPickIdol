@@ -1,199 +1,197 @@
-<!Doctype html>
-<html lang="ko">
+<!doctype html>
+<html lang="en">
 
-    <head>
-        <!-- Required meta tags -->
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-        <title>My Pick Idol</title>
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-        <!-- Bootstrap CSS -->
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
-              integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
-              crossorigin="anonymous">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 
-        <!-- JS -->
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
-                integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
-                crossorigin="anonymous"></script>
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+            integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+            crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+            integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+            crossorigin="anonymous"></script>
 
-        <!-- 구글폰트 -->
-        <link href="https://fonts.googleapis.com/css2?family=Jua&family=Noto+Sans:wght@400;700&display=swap" rel="stylesheet">
+    <title>스파르타코딩클럽 | 부트스트랩 연습하기</title>
 
-        <!-- style -->
-        <style type="text/css">
-            * {
-                margin: 0;
-                padding: 0;
-                box-sizing: border-box;
-                font-family: 'Noto Sans', sans-serif;
-            }
+    <link href="https://fonts.googleapis.com/css2?family=Jua&display=swap" rel="stylesheet">
 
-            .wrap {
-                position: relative;
-                width: 100%;
-                height: auto;
-                margin: 0 auto;
-            }
+    <style>
+        * {
+            font-family: 'Jua', sans-serif;
+        }
 
-            .my-idol {
-                width: 1000px;
-                margin-top: 300px;
-                margin-bottom: 50px;
-            }
+        .item-img {
+            width: 500px;
+            height: 300px;
 
-            .card {
-                width: 200px;
-            }
+            background-image: url("https://t1.daumcdn.net/liveboard/nts/5bcccfbd33da4865817b9c606b6b852e.JPG");
+            background-position: center;
+            background-size: cover;
+        }
 
-            #fav_video {
-                position: relative;
-                width: 85%;
-                height: auto;
-                margin: 20px auto;
-                /*border: 1px solid red;*/
-            }
+        .price {
+            font-size: 20px;
+        }
 
-            .video_list {
-                position: relative;
-                width: 100%;
-                height: auto;
-            }
+        .item-desc {
+            width: 500px;
+            margin-top: 20px;
+            margin-bottom: 20px;
+        }
 
-            .video_box {
-                position: relative;
-                float: left;
-                width: 22%;
-                height: 330px;
-                border-radius: 20px;
-                margin: 1% 0 1% 2%;
-                border: 2px solid lightgrey;
-            }
+        .item-order {
+            width: 500px;
+            margin-bottom: 50px;
+        }
 
-            .video {
-                width: 100%;
-                height: 200px;
-                overflow: hidden;
-                /*비디오를 해당 크기의 세로정렬 가운데를 위해 */
-                display: flex;
-                justify-content: center;
-                align-items: center;
-                margin-top: 18px;
-            }
+        .btn-order {
+            margin: auto;
+            width: 100px;
 
-            .video_box a {
-                text-decoration: none;
-                display: block;
-                color: black;
-                width: 100%;
-                height: 90px;
-                /*border: 1px solid red;*/
-                margin-top: 5px;
-                padding: 5px;
-            }
+            display: block;
+        }
 
-            .video_box a:hover {
-                text-decoration: underline;
-                color: dimgray;
-            }
-        </style>
-        <script>
-            $(document).ready(function () {
-                showArticles();
-            });
+        .wrap {
+            width: 500px;
+            margin: auto;
+        }
 
+        .rate {
+            color: blue;
+        }
+    </style>
 
-            function postArticle() {
-                let url = $('#post-url').val()
-                let comment = $('#post-comment').val()
+    <script>
+        $(document).ready(function () {
+            get_rate();
+            listing();
+        });
 
-                $.ajax({
-                    type: "POST",
-                    url: "/memo",
-                    data: {url_give:url, comment_give:comment},
-                    success: function (response) { // 성공하면
-                        alert(response["msg"]);
-                        window.location.reload()
-                    }
-                })
-            }
+        function listing() {
+            $.ajax({
+                type: "GET",
+                url: "/order",
+                data: {},
+                success: function (response) {
+                    if (response["result"] == "success") {
+                        let orders = response['orders'];
+                        for (let i = 0; i < orders.length; i++) {
+                            let name = orders[i]['name'];
+                            let count = orders[i]['count'];
+                            let address = orders[i]['address'];
+                            let phone = orders[i]['phone'];
 
-            function showArticles() {
-                $.ajax({
-                    type: "GET",
-                    url: "/memo",
-                    data: {},
-                    success: function (response) {
-                        let images = response['image']
-                        for (let i = 0; i < articles.length; i++) {
-                            let title = articles[i]['title']
-                            let image = articles[i]['image']
-                            let url = articles[i]['url']
-                            let desc = articles[i]['desc']
-                            let comment = articles[i]['comment']
-
-                            let temp_html = `<div class="card">
-                                                <img class="card-img-top"
-                                                     src="${image}"
-                                                     alt="Card image cap">
-                                                <div class="card-body">
-                                                    <a target="_blank" href="${url}" class="card-title">${title}</a>
-
-                                                </div>
-                                            </div>`
-                            $('#cards-box').append(temp_html)
+                            let temp_html = `<tr>
+                                                <th scope="row">${name}</th>
+                                                <td>${count}</td>
+                                                <td>${address}</td>
+                                                <td>${phone}</td>
+                                            </tr>`
+                            $('#orders-box').append(temp_html)
                         }
                     }
-                })
-            }
-        </script>
+                }
+            })
+        }
 
-    </head>
+        function get_rate() {
+            $.ajax({
+                type: "GET",
+                url: "https://api.manana.kr/exchange/rate.json",
+                data: {},
+                success: function (response) {
+                    let now_rate = response[1]['rate'];
+                    $('#now-rate').text(now_rate);
+                }
+            })
+        }
 
-    <body>
-        <div class="wrap">
+        function order() {
+            let name = $('#order-name').val();
+            let count = $('#order-count').val();
+            let address = $('#order-address').val();
+            let phone = $('#order-phone').val();
 
-            <img class="my-idol"
-                 src="https://v-phinf.pstatic.net/20210701_104/1625065533770FDOMI_JPEG/upload_69145265481872491ef6aa0c6-e752-48d9-97e0-9ce71cf7c1ee.jpg?type=n800_400">
-            <section id="fav_video">
-                <h2>동영상</h2>
-                <div class="video_list">
-                    <!--                유튜브-->
-                    <div class="video_box">
-                        <iframe class="video" width="100%" src="https://www.youtube.com/embed/iDjQSdN_ig8"
-                                frameborder="0"
-                                allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
-                                allowfullscreen></iframe>
-                        <a href="#"><p>[MV] OH MY GIRL(오마이걸) _ Nonstop(살짝 설렜어)</p></a>
-                    </div>
-                    <div class="video_box">
-                        <iframe class="video" width="100%" src="https://www.youtube.com/embed/iDjQSdN_ig8"
-                                frameborder="0"
-                                allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
-                                allowfullscreen></iframe>
-                        <a href="#"><p>[MV] OH MY GIRL(오마이걸) _ Nonstop(살짝 설렜어)</p></a>
-                    </div>
-                    <!--                브이앱-->
-                    <div class="video_box">
-                        <iframe class="video" width="100%" src="https://vlive.tv/embed/278550?autoPlay=false"
-                                frameborder="0"
-                                allow="accelerometer; mute=1; encrypted-media; gyroscope; picture-in-picture"
-                                allowfullscreen></iframe>
-                        <a href="#"><p>방탄소년단 팬들 난리난 잠실 주경기장 현장 리허설 상황 (세트리스트 스포 주의) BTS Seoul Concert rehearsal</p></a>
-                    <div class="video_box">
-                        <iframe class="video" width="100%" src="https://vlive.tv/embed/278550?autoPlay=false"
-                                frameborder="0"
-                                allow="accelerometer; mute=1; encrypted-media; gyroscope; picture-in-picture"
-                                allowfullscreen></iframe>
-                        <a href="#"><p>방탄소년단 팬들 난리난 잠실 주경기장 현장 리허설 상황 (세트리스트 스포 주의) BTS Seoul Concert rehearsal</p></a>
-                    </div>
-                </div>
-            </section>
+            $.ajax({
+                type: "POST",
+                url: "/order",
+                data: {name_give: name, count_give: count, address_give: address, phone_give: phone},
+                success: function (response) {
+                    if (response["result"] == "success") {
+                        alert(response["msg"]);
+                        window.location.reload();
+                    }
+                }
+            })
+        }
+    </script>
+</head>
+
+<body>
+<div class="wrap">
+    <div class="item-img"></div>
+    <div class="item-desc">
+        <h1>양초를 팝니다 <span class="price">가격:3,000원/개</span></h1>
+        <p>이 양초는 사실 특별한 힘을 지니고 있어요!</p>
+        <p class="rate">달러-원 환율: <span id="now-rate">1219.15</span></p>
+    </div>
+    <div class="item-order">
+        <div class="input-group mb-3">
+            <div class="input-group-prepend">
+                <span class="input-group-text">주문자이름</span>
+            </div>
+            <input id="order-name" type="text" class="form-control" aria-label="Default"
+                   aria-describedby="inputGroup-sizing-default">
         </div>
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-        <script>
+        <div class="input-group mb-3">
+            <div class="input-group-prepend">
+                <label class="input-group-text" for="inputGroupSelect01">수량</label>
+            </div>
+            <select id="order-count" class="custom-select">
+                <option selected>-- 수량을 선택하세요 --</option>
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+            </select>
+        </div>
+        <div class="input-group mb-3">
+            <div class="input-group-prepend">
+                <span class="input-group-text">주소</span>
+            </div>
+            <input id="order-address" type="text" class="form-control" aria-label="Default"
+                   aria-describedby="inputGroup-sizing-default">
+        </div>
+        <div class="input-group mb-3">
+            <div class="input-group-prepend">
+                <span class="input-group-text">전화번호</span>
+            </div>
+            <input id="order-phone" type="text" class="form-control" aria-label="Default"
+                   aria-describedby="inputGroup-sizing-default">
+        </div>
+        <button type="button" onclick="order()" class="btn btn-primary btn-order">주문하기</button>
+    </div>
+    <table class="table">
+        <thead>
+        <tr>
+            <th scope="col">이름</th>
+            <th scope="col">수량</th>
+            <th scope="col">주소</th>
+            <th scope="col">전화번호</th>
+        </tr>
+        </thead>
+        <tbody id="orders-box">
+        </tbody>
+    </table>
+</div>
+</body>
 
-        </script>
-    </body>
 </html>
