@@ -2,9 +2,62 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>MY PICK ! IDOL</title>
+    <link rel="stylesheet" type="text/css" href="/static/main.css">
+     <script>
+        $(document).ready(function () {
+           $('#card-box').empty()
+            listing();
+        });
+
+        function listing() {
+            $.ajax({
+                type: 'GET',
+                url: '/idol',
+                data: {},
+                success: function (response) {
+                   let rows = response['idolse']
+                    for(let i = 0;  i < rows.length; i++){
+                        let id = rows[i]['id']
+                        let name = rows[1]['name']
+                        let image = rows[i]['image']
+
+                        let temp_html = `<div class="i">
+                                            <a href="${id}" target="_blank"><img src="${image}" class="img"/></a>
+                                            <p class="name">${name}</p>
+                                        </div>`
+
+                        $('#cards-box').append(temp_html)
+
+                    }
+                }
+            })
+        }
+     </script>
 </head>
 <body>
-    <div>이윤지 수정</div>
+<!--페이지 상단  헤더-->
+<header>
+    <!--로그인과 즐겨찾기-->
+    <nav class="navbar">
+        <li><a href="#">로그아웃</a></li>
+    </nav>
+    <!--  로고  -->
+    <div class="logo">
+        <a href="#" target="_blank"><h1>MY PICK !<br>
+            IDOL !</h1></a>
+    </div>
+    <!--  검색창  -->
+    <div class="search">
+        <input type="text" placeholder="검색어 입력"/>
+    </div>
+</header>
+<!--메인 콘솔-->
+<main class="main" id="cards-box">
+    <div class="i">
+        <a href="#" target="_blank"><img class="img"/></a>
+        <p class="name">name</p>
+    </div>
+</main>
 </body>
 </html>
